@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_app
+    ports:
+      - "8084:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=ems.settings
+    volumes:
+      - /var/www/html/ems:/var/www/html/ems
+    networks:
+      ems_network:
+        ipv4_address: 172.30.0.3
+
+networks:
+  ems_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+
+
+
